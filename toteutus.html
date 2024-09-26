@@ -2,7 +2,7 @@
 <html lang="fi">
 
 <head>
-    <title>Tehtävä 1</title>
+    <title>Tehtävä 2</title>
 
     <!-- linkki navigation-tiedostoon -->
     <script src="./navigointi.js"></script>
@@ -12,38 +12,36 @@
 </head>
 
 <body>
-    <div id="nav"></div>
+<div id="nav"></div>
     <div id="vastaus">
     </div>
     <script>
         //funktio joka kirjoittaa haetun datan halutussa muodossa HTML-sivulle
         function kerro(data) {
             var teksti = "";  //Muuttuja, johon tulostettava tieto kerätään
-            teksti = "<h1>" + data.otsikko + "</h1>"; //Otsikko tiedon hakeminen ja sijoittaminen h1-elementtiin
-            teksti = teksti + "<p>" + data.kuvaus + "</p>"; //Kuvaus tiedon hakeminen ja sijoittaminen p-elementtiin
-            teksti = teksti + "<p><img src='" + data.kuva + "' alt = 'kuva' ></p>" //Kuva tiedon hakeminen ja sijoittaminen p-elementtiin
-            teksti = teksti + "<h3>Opintojakso: " + data.opintojakso.nimi + " " + data.opintojakso.tunnus + " " + data.opintojakso.opintopisteet + " " + "op" + "</h3>" //Nimi, Tunnus sekä Opintopisteiden hakeminen ja sijoittaminen h3-elementtiin
+            teksti = "<h1>" + data.toteutus.nimi + "</h1>"; //Otsikkona toimii tässä tiedostossa toteutuksen nimi
+            teksti = teksti + "<h3>" + data.toteutus.tunnus + "</h3>"; //h3-alaotsikkona on toteutuksen tunnus
+            teksti = teksti + "<p><img src='" + data.digikuva + "' alt = 'kuva' style='max-width: 423px; height: auto;'></p>" //Kuva tiedon hakeminen, koon muuttaminen ja sijoittaminen p-elementtiin
 
-            //for loop sisällön lisääminen muuttujaan
+            teksti = teksti + "<p>" + data.toteutus.alkaa + " - " + data.toteutus.loppuu + "</p>" //Toteutuksen alkamis- ja päättymispäivät
+            teksti = teksti + "<p>Toteutus kestää " + data.toteutus.kesto_vko + " viikkoa</p>" //Kesto viikkoina
+
+            teksti = teksti + "<h3>Osallistujat:</h3>" //väliotsikko
+            teksti = teksti + "<p>Lukumäärä: " + data.osallistujat.lukumaara + "</p>" //Osallistujien lukumäärä
+
+            //for loop osallistujien nimien kertomiseen
             teksti = teksti + "<ul>"
-            for (var i = 0; i < data.sisalto.length; i++) {
-                teksti = teksti + "<li>" + data.sisalto[i] + "</li>";
+            for (var i = 0; i < data.osallistujat.nimet.length; i++) {
+                teksti = teksti + "<li>" + data.osallistujat.nimet[i] + "</li>";
             }
             teksti = teksti + "</ul>"
-
-            //for loop aiheen ja linkin lisääminen muuttujaan
-            teksti += "<h3>Linkit:</h3><ul>";
-            for (var i = 0; i < data.tekniikat.length; i++) {
-                teksti += "<li>" + data.tekniikat[i].aihe + " <a href='" + data.tekniikat[i].linkki + "' target='_blank'>" + data.tekniikat[i].linkki + "</a></li>";
-            }
-            teksti += "</ul>";
 
             //sisällön asettaminen  "vastaus" diviin
             document.getElementById("vastaus").innerHTML = teksti;
         }
 
         //Tähän kirjoita oman JSON tietueesi URL
-        fetch('https://maajoo.github.io/kurssit.json/kurssit.json')
+        fetch('https://maajoo.github.io/toteutus.json/toteutus.json')
 
             //Muunnetaan vastaus JSON muotoon
             .then(function (response) {
