@@ -2,7 +2,7 @@
 <html lang="fi">
 
 <head>
-    <title>Tehtävä 3 Tapahtumat</title>
+    <title>Tehtävä 4 Liikennekamera</title>
 
     <!-- linkki navigation-tiedostoon -->
     <script src="./navigointi.js"></script>
@@ -16,19 +16,18 @@
 
 <body>
     <div id="nav"></div>
-    <div id="vastaus">
-    </div>
+    <div id="vastaus"></div>
+
     <script>
         //funktio joka kirjoittaa haetun datan halutussa muodossa HTML-sivulle
         function kerro(data) {
             var teksti = "";  //Muuttuja, johon tulostettava tieto kerätään
-            teksti = "<h1>Tampereella tapahtuu</h1>"; //Otsikkona toimii tässä tiedostossa "Tampereella tapahtuu"
+            teksti = "<h1>Autolla Tampereelle</h1>"
+            teksti = teksti + "<p>Minkälainen keli siellä on?</p>"
 
-            // for loop joka käy läpi tietueen ja lisää haluttavat tiedot "teksti" muuttujaan
-            for (var i = 0; i < data.length; i++) {
-                teksti = teksti + "<h3>" + data[i].title + "</h3>";
-                teksti = teksti + "<p>" + data[i].description + "</p>";
-                teksti = teksti + "<p> <a href=" + data[i].url + ">" + data[i].url + "</a></p>";
+            //for loop joka lisää kaikki data.presets kuvat "teksti" elementtiin
+            for (var i = 0; i < data.presets.length; i++) {
+                teksti = teksti + "<p><img src='https://weathercam.digitraffic.fi/" + data.presets[i].id + ".jpg' alt='kuva'</p>";
             }
 
             //sisällön asettaminen  "vastaus" diviin
@@ -36,7 +35,7 @@
         }
 
         //JSON tietueen URL
-        fetch('https://api.visittampere.com/api/v1/visittampere/event/published/all/?format=json&lang=fi')
+        fetch('https://tie.digitraffic.fi/api/weathercam/v1/stations/C04507/data')
 
             //Muunnetaan vastaus JSON muotoon
             .then(function (response) {
@@ -54,6 +53,8 @@
                 document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>"
             })
     </script>
+
+
 </body>
 
 </html>

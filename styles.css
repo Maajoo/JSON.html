@@ -1,0 +1,68 @@
+/* body tyyli */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* navigaatio tyyli */
+nav {
+    background-color: #222;
+    padding: 10px;
+    text-align: center;
+}
+
+/* laatikko sivun luettavuuden parantamiseen */
+.laatikko {
+    border: 2px solid rgb(110, 110, 110);
+    border-radius: 50px;
+    background-color: rgb(22, 22, 22);
+    margin: 10px;
+}
+
+/* otsikoiden tyylit */
+h1,
+h2,
+h3 {
+    margin-left: 30px;
+    margin-right: 30px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* leipätekstin tyyli */
+p {
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+/* listan tyyli */
+ul {
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+/* linkkien tyyli */
+a {
+    color: #7da5b4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin: 10px;
+}
+
+/* linkkien tyyli kun hiiri on päällä */
+a:hover {
+    color: #ffffff;
+}

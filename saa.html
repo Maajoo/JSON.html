@@ -7,50 +7,47 @@
     <!-- linkki navigation-tiedostoon -->
     <script src="./navigointi.js"></script>
 
+    <!-- linkki css tyylitiedostoon -->
+    <link rel="stylesheet" href="styles.css">
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
     <div id="nav"></div>
-    <div id="vastausHKI"></div>
-    <div id="vastausTRE"></div>
+    <div>
+        <h1>Sää - siitä aina on jotain kerrottavaa</h1>
+        <p>Millainen sää Helsingissä on? Entä Tampereella?</p>
+    </div>
+    <div id="vastausHKI" class="laatikko"></div>
+    <div id="vastausTRE" class="laatikko"></div>
 
-    <!-- script joka kertoo Helsingin sään -->
     <script>
-        //funktio joka kirjoittaa haetun datan halutussa muodossa HTML-sivulle
+        //funktio joka kirjoittaa Helsingin sään HTML-sivulle
         function kerroHKI(data) {
             var teksti = "";  //Muuttuja, johon tulostettava tieto kerätään
-            teksti = "<h1>Sää - siitä aina on jotain kerrottavaa</h1>"
-            teksti = teksti + "<p>Millainen sää Helsingissä on? Entä Tampereella?"
-
-            teksti = teksti + "<ul><li>kaupunki: " + data.name + "</li>";
-            teksti = teksti + "<li>kuvaus: " + data.weather[0].description + "</li>";
-            teksti = teksti + "<li>lämpötila: " + data.main.temp + "°C</li>"
-            teksti = teksti + "<li>tuulen nopeus: " + data.wind.speed + " m/s</li></ul>"
-
+            teksti = teksti + "<ul><li>Kaupunki: " + data.name + "</li>";
+            teksti = teksti + "<li>Kuvaus: " + data.weather[0].description + "</li>";
+            teksti = teksti + "<li>Lämpötila: " + data.main.temp + "°C</li>"
+            teksti = teksti + "<li>Tuulen nopeus: " + data.wind.speed + " m/s</li></ul>"
             var kuva = 'http://openweathermap.org/img/w/' + data.weather[0].icon + '.png';
             teksti = teksti + "<p><img src='" + kuva + "' alt='kuva' ></p>";
 
-
-            //sisällön asettaminen  "vastaus" diviin
+            //sisällön asettaminen  "vastausHKI" diviin
             document.getElementById("vastausHKI").innerHTML = teksti;
         }
-
-        //Tähän kirjoita oman JSON tietueesi URL
+        //JSON tietueen URL (Helsinki)
         fetch('https://api.openweathermap.org/data/2.5/weather?lang=fi&q=helsinki&units=metric&APPID=665ecd56dfc08dbb50feb8b8f5034e28')
-
             //Muunnetaan vastaus JSON muotoon
             .then(function (response) {
                 return response.json();
             })
-
             //Käsitellään muunnettu (eli JSON muotoinen) vastaus
             .then(function (responseJson) {
                 //Kutsutaan funktiota ja välitetään sille json-vastaus
                 kerroHKI(responseJson);
             })
-
             //Jos tuli jokin virhe
             .catch(function (error) {
                 document.getElementById("vastausHKI").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>"
@@ -59,36 +56,31 @@
 
 
 
-                    //funktio joka kirjoittaa haetun datan halutussa muodossa HTML-sivulle
+
+        //funktio joka kirjoittaa Tampereen sään HTML-sivulle
         function kerroTRE(data) {
             var teksti = "";  //Muuttuja, johon tulostettava tieto kerätään
-
-            teksti = teksti + "<ul><li>kaupunki: " + data.name + "</li>";
-            teksti = teksti + "<li>kuvaus: " + data.weather[0].description + "</li>";
-            teksti = teksti + "<li>lämpötila: " + data.main.temp + "°C</li>"
-            teksti = teksti + "<li>tuulen nopeus: " + data.wind.speed + " m/s</li></ul>"
+            teksti = teksti + "<ul><li>Kaupunki: " + data.name + "</li>";
+            teksti = teksti + "<li>Kuvaus: " + data.weather[0].description + "</li>";
+            teksti = teksti + "<li>Lämpötila: " + data.main.temp + "°C</li>"
+            teksti = teksti + "<li>Tuulen nopeus: " + data.wind.speed + " m/s</li></ul>"
             var kuva = 'http://openweathermap.org/img/w/' + data.weather[0].icon + '.png';
             teksti = teksti + "<p><img src='" + kuva + "' alt='kuva' ></p>";
 
-
-            //sisällön asettaminen  "vastaus" diviin
+            //sisällön asettaminen  "vastausTRE" diviin
             document.getElementById("vastausTRE").innerHTML = teksti;
         }
-
-        //Tähän kirjoita oman JSON tietueesi URL
+        //JSON tietueen URL (Tampere)
         fetch('https://api.openweathermap.org/data/2.5/weather?lang=fi&q=tampere&units=metric&APPID=665ecd56dfc08dbb50feb8b8f5034e28')
-
             //Muunnetaan vastaus JSON muotoon
             .then(function (response) {
                 return response.json();
             })
-
             //Käsitellään muunnettu (eli JSON muotoinen) vastaus
             .then(function (responseJson) {
                 //Kutsutaan funktiota ja välitetään sille json-vastaus
                 kerroTRE(responseJson);
             })
-
             //Jos tuli jokin virhe
             .catch(function (error) {
                 document.getElementById("vastausTRE").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>"

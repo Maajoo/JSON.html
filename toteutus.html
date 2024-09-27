@@ -7,12 +7,15 @@
     <!-- linkki navigation-tiedostoon -->
     <script src="./navigointi.js"></script>
 
+    <!-- linkki css tyylitiedostoon -->
+    <link rel="stylesheet" href="styles.css">
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-<div id="nav"></div>
+    <div id="nav"></div>
     <div id="vastaus">
     </div>
     <script>
@@ -40,7 +43,7 @@
             document.getElementById("vastaus").innerHTML = teksti;
         }
 
-        //Tähän kirjoita oman JSON tietueesi URL
+        //JSON tietueen URL
         fetch('https://maajoo.github.io/toteutus.json/toteutus.json')
 
             //Muunnetaan vastaus JSON muotoon

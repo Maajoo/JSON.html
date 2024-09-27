@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <title>Tehtävä 4 Junat</title>
+
+    <!-- linkki navigation-tiedostoon -->
+    <script src="./navigointi.js"></script>
+
+    <!-- linkki css tyylitiedostoon -->
+    <link rel="stylesheet" href="styles.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div id="nav"></div>
+    <div id="vastaus"></div>
+
+    <script>
+        function kerro(data) {
+            var teksti = "";  //Muuttuja, johon tulostettava tieto kerätään
+            teksti = "<h1>Mennäänkö junalla Tampereelle?</h1>"
+            teksti = teksti + "<p>Kuinkahan usein junia menee?</p>"
+
+
+            for (var i = 0; i < data.length; i++) {
+                for (var j = 0; j < data[i].timeTableRows.length; j++) {
+                    if (data[i].timeTableRows[0].stationShortCode === "HKI") {
+                        if (data[i].timeTableRows[j].stationShortCode === "TPE") {
+                            if (data[i].timeTableRows[j].type === "DEPARTURE") {
+                                if (data[i].trainCategory === "Long-distance") {
+                                    var nro = data[i].trainNumber;
+                                    var tyyppi = data[i].trainType;
+                                    var lahtopaikka = data[i].timeTableRows[0].stationShortCode;
+                                    var vika = data[i].timeTableRows.length - 1;
+                                    var lPvm = data[i].timeTableRows[0].scheduledTime;
+                                    var lAika = lPvm.substr(0, 10) + " kello: " + lPvm.substr(11, 5);
+                                    var sPvm = data[i].timeTableRows[j].scheduledTime;
+                                    var sAika = sPvm.substr(0, 10) + " kello: " + sPvm.substr(11, 5);
+
+                                    //lisää jokaiselle "vastaukselle" oma div tyylittelyä varten
+                                    teksti = teksti + "<div class = 'laatikko'>";
+
+                                    teksti = teksti + "<h3>Junan numero: " + nro + ".</h3>";
+                                    teksti = teksti + "<p>Junan tyyppi: " + tyyppi + ".</p>";
+                                    teksti = teksti + "<p>Juna lähtee asemalta " + lahtopaikka + " " + lAika + " ja saapuu Tampereelle." + sAika + "</p>";
+
+                                    teksti = teksti + "</div>"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            //sisällön asettaminen  "vastaus" diviin
+            document.getElementById("vastaus").innerHTML = teksti;
+        }
+
+        //JSON tietueen URL
+        fetch('https://rata.digitraffic.fi/api/v1/live-trains/station/HKI?departing_trains=100&include_nonstopping=false')
+
+            //Muunnetaan vastaus JSON muotoon
+            .then(function (response) {
+                return response.json();
+            })
+
+            //Käsitellään muunnettu (eli JSON muotoinen) vastaus
+            .then(function (responseJson) {
+                //Kutsutaan funktiota ja välitetään sille json-vastaus
+                kerro(responseJson);
+            })
+
+            //Jos tuli jokin virhe
+            .catch(function (error) {
+                document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>"
+            })
+    </script>
+
+
+</body>
+
+</html>
